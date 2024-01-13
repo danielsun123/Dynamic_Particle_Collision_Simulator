@@ -10,7 +10,7 @@
 #define PI 3.14159265358979323846
 
 //global variables
-float radius = 6.0;
+float radius = 4.0;
 float damping_coefficient = 0.95;
 
 SDL_Window *window = NULL;
@@ -143,7 +143,7 @@ int main(int argc, char *argv[]) {
         //----------------------collision detection------------------------
         
         for (int j = 0; j < numBalls - 1; j++) {
-            for (int k = j + 1; k < numBalls; k++) {
+            for (int k = j + 1; k < numBalls; k++) {   
 
                 ball_array[j][k]; //creates array that stores collision combinations 
 
@@ -346,61 +346,64 @@ int main(int argc, char *argv[]) {
         SDL_RenderClear(renderer);
 
         // Define an array of SDL_Color values for different ball colors
+    
+
         SDL_Color ballColors[] = {
-            {255, 255, 255, 255},   // White
-            {255, 0, 0, 255},       // Red
-            {0, 255, 0, 255},       // Green
-            {0, 0, 255, 255},       // Blue
-            {255, 255, 0, 255},     // Yellow
-            {255, 0, 255, 255},     // Magenta
-            {0, 255, 255, 255},     // Cyan
-            {128, 0, 0, 255},       // Maroon
-            {0, 128, 0, 255},       // Green (Dark)
-            {0, 0, 128, 255},       // Navy Blue
-            {128, 128, 0, 255},     // Olive
-            {128, 0, 128, 255},     // Purple
-            {0, 128, 128, 255},     // Teal
-            {128, 128, 128, 255},   // Gray
-            {192, 192, 192, 255},   // Silver
-            {255, 165, 0, 255},     // Orange
-            {139, 69, 19, 255},     // Saddle Brown
-            {0, 255, 127, 255},     // Spring Green
-            {255, 99, 71, 255},     // Tomato
-            {255, 69, 0, 255},      // Red-Orange
-            {255, 140, 0, 255},     // Dark Orange
-            {255, 215, 0, 255},     // Gold
-            {218, 165, 32, 255},    // Goldenrod
-            {0, 128, 0, 255},       // Green (Dark)
-            {0, 255, 255, 255},     // Cyan (Aqua)
-            {0, 0, 255, 255},       // Blue (Navy)
-            {255, 192, 203, 255},   // Pink (Light)
-            {255, 182, 193, 255},   // Pink (Light)
-            {255, 228, 196, 255},   // Bisque
-            {0, 139, 139, 255},     // Dark Cyan
-            {255, 105, 180, 255},   // Hot Pink
-            {70, 130, 180, 255},    // Steel Blue
-            {46, 139, 87, 255},     // Sea Green
-            {255, 20, 147, 255},    // Deep Pink
-            {0, 128, 128, 255},     // Teal
-            {255, 192, 203, 255},   // Pink (Light)
-            {255, 99, 71, 255},     // Tomato
-            {139, 0, 139, 255},     // Dark Magenta
-            {255, 215, 0, 255},     // Gold
-            {219, 112, 147, 255},   // Pale Violet Red
-            {0, 250, 154, 255},     // Medium Spring Green
-            {0, 128, 0, 255},       // Green (Dark)
-            {255, 105, 180, 255},   // Hot Pink
-            {176, 224, 230, 255},   // Powder Blue
-            {255, 69, 0, 255},      // Red-Orange
-            {0, 128, 0, 255},       // Green (Dark)
-            {255, 99, 71, 255},     // Tomato
-            {255, 69, 0, 255},      // Red-Orange
-            {128, 0, 0, 255},       // Maroon
-            {0, 0, 128, 255},       // Navy Blue
-            {255, 165, 0, 255},     // Orange
-            {255, 215, 0, 255}      // Gold
+            {255, 255, 255, 255},  // White
+            {255, 0, 0, 255},      // Red
+            {0, 255, 0, 255},      // Green
+            {0, 0, 255, 255},      // Blue
+            {255, 255, 0, 255},    // Yellow
+            {255, 0, 255, 255},    // Magenta
+            {0, 255, 255, 255},    // Cyan
+            {128, 128, 128, 255},  // Gray
+            {128, 0, 0, 255},      // Maroon
+            {128, 128, 0, 255},    // Olive
+            {0, 128, 0, 255},      // Green
+            {128, 0, 128, 255},    // Purple
+            {0, 128, 128, 255},    // Teal
+            {0, 0, 128, 255},      // Navy
+            {255, 165, 0, 255},    // Orange
+            {128, 128, 64, 255},   // Olive Drab
+            {0, 255, 128, 255},    // Spring Green
+            {173, 216, 230, 255},  // Light Blue
+            {240, 230, 140, 255},  // Khaki
+            {255, 192, 203, 255},  // Pink
+            {255, 20, 147, 255},   // Deep Pink
+            {255, 0, 255, 255},    // Fuchsia
+            {255, 69, 0, 255},     // Red-Orange
+            {210, 105, 30, 255},   // Chocolate
+            {0, 255, 255, 255},    // Aqua
+            {70, 130, 180, 255},   // Steel Blue
+            {255, 218, 185, 255},  // Peach Puff
+            {218, 112, 214, 255},  // Orchid
+            {107, 142, 35, 255},   // Olive Drab
+            {244, 164, 96, 255},   // Sandy Brown
+            {255, 222, 173, 255},  // Navajo White
+            {128, 0, 0, 255},      // Maroon
+            {0, 128, 0, 255},      // Green
+            {0, 0, 128, 255},      // Navy
+            {255, 99, 71, 255},    // Tomato
+            {0, 128, 128, 255},    // Teal
+            {255, 0, 255, 255},    // Magenta
+            {128, 0, 128, 255},    // Purple
+            {210, 180, 140, 255},  // Tan
+            {255, 255, 0, 255},    // Yellow
+            {139, 69, 19, 255},    // Saddle Brown
+            {0, 255, 0, 255},      // Lime
+            {255, 0, 0, 255},      // Red
+            {0, 0, 255, 255},      // Blue
+            {128, 128, 128, 255},  // Gray
+            {255, 140, 0, 255},    // Dark Orange
+            {127, 255, 0, 255},    // Chartreuse
+            {255, 127, 80, 255},   // Coral
+            {255, 215, 0, 255},    // Gold
+            {0, 250, 154, 255},    // Medium Spring Green
+            {0, 255, 127, 255},    // Spring Green
+            {0, 0, 139, 255}       // Dark Blue
         };
 
+    
         // render circle 
         for (int i = 0; i < numBalls; ++i) {
             SDL_SetRenderDrawColor(renderer, ballColors[i].r, ballColors[i].g, ballColors[i].b, ballColors[i].a);
