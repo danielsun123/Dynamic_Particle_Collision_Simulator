@@ -8,15 +8,16 @@
 #define SCREEN_WIDTH 640.0
 #define SCREEN_HEIGHT 480.0
 #define PI 3.14159265358979323846
+#define numBalls 100
 
 //global variables
-float radius = 4.0;
-float damping_coefficient = 0.95;
+float radius = 3.5;
+float damping_coefficient = 0.99;
 
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 
-int numBalls = 50; // global number of balls
+
 
 // declare structure for balls 
 typedef struct Ball {
@@ -63,16 +64,16 @@ void drawFilledCircle(SDL_Renderer *renderer, int positionX, int positionY, int 
     }
 }
 
-// vector operation (multiplying by a number)
+// vector operation (multiplying by a scalar)
 void multiplyVectorByConstant(double vector[], int size, double constant) {
     for (int i = 0; i < size; i++) {
         vector[i] *= constant;
     }
 }
 
-// random initial position collision avoidance                                                         Note: array balls created for algorithm 
-bool checkCollision(BallType* balls, int numBalls, int x, int y, int radius) {
-    for (int i = 0; i < numBalls; i++) {
+// function for random initial position collision avoidance                                                         Note: array balls created for algorithm 
+bool checkCollision(BallType* balls, int ballCount, int x, int y, int radius) {
+    for (int i = 0; i < ballCount; i++) {
         int dx = x - balls[i].CircleX;
         int dy = y - balls[i].CircleY;
         int distanceSquared = dx * dx + dy * dy;
@@ -116,6 +117,7 @@ int main(int argc, char *argv[]) {
     }
 
     // create window and renderer
+    
     create();
 
     for (int i = 0; i < numBalls; i++) {             // generate random positions, velocities, and masses for all balls 
@@ -124,9 +126,9 @@ int main(int argc, char *argv[]) {
             Ball[i].CircleY = rand() % (upperY - lowerY + 1) + lowerY;
         } while (checkCollision(Ball, i, Ball[i].CircleX, Ball[i].CircleY, radius));
         
-        Ball[i].vx = rand() % (35 - (-35) + 1) + -35;        // random initial velocities      !!!(Note: increasing velocities and mass can cause program instability)!!!
-        Ball[i].vy = rand() % (35 - (-35) + 1) + -35;
-        Ball[i].mass = rand() % (15 - 5 + 1) + 5;
+        Ball[i].vx = rand() % (15 - (-15) + 1) + -15;        // random initial velocities      
+        Ball[i].vy = rand() % (15 - (-15) + 1) + -15;
+        Ball[i].mass = rand() % (10 - 5 + 1) + 5;
     }
 
     // infinite loop (ends with user input/event)
@@ -348,62 +350,14 @@ int main(int argc, char *argv[]) {
         // Define an array of SDL_Color values for different ball colors
     
 
-        SDL_Color ballColors[] = {
-            {255, 255, 255, 255},  // White
-            {255, 0, 0, 255},      // Red
-            {0, 255, 0, 255},      // Green
-            {0, 0, 255, 255},      // Blue
-            {255, 255, 0, 255},    // Yellow
-            {255, 0, 255, 255},    // Magenta
-            {0, 255, 255, 255},    // Cyan
-            {128, 128, 128, 255},  // Gray
-            {128, 0, 0, 255},      // Maroon
-            {128, 128, 0, 255},    // Olive
-            {0, 128, 0, 255},      // Green
-            {128, 0, 128, 255},    // Purple
-            {0, 128, 128, 255},    // Teal
-            {0, 0, 128, 255},      // Navy
-            {255, 165, 0, 255},    // Orange
-            {128, 128, 64, 255},   // Olive Drab
-            {0, 255, 128, 255},    // Spring Green
-            {173, 216, 230, 255},  // Light Blue
-            {240, 230, 140, 255},  // Khaki
-            {255, 192, 203, 255},  // Pink
-            {255, 20, 147, 255},   // Deep Pink
-            {255, 0, 255, 255},    // Fuchsia
-            {255, 69, 0, 255},     // Red-Orange
-            {210, 105, 30, 255},   // Chocolate
-            {0, 255, 255, 255},    // Aqua
-            {70, 130, 180, 255},   // Steel Blue
-            {255, 218, 185, 255},  // Peach Puff
-            {218, 112, 214, 255},  // Orchid
-            {107, 142, 35, 255},   // Olive Drab
-            {244, 164, 96, 255},   // Sandy Brown
-            {255, 222, 173, 255},  // Navajo White
-            {128, 0, 0, 255},      // Maroon
-            {0, 128, 0, 255},      // Green
-            {0, 0, 128, 255},      // Navy
-            {255, 99, 71, 255},    // Tomato
-            {0, 128, 128, 255},    // Teal
-            {255, 0, 255, 255},    // Magenta
-            {128, 0, 128, 255},    // Purple
-            {210, 180, 140, 255},  // Tan
-            {255, 255, 0, 255},    // Yellow
-            {139, 69, 19, 255},    // Saddle Brown
-            {0, 255, 0, 255},      // Lime
-            {255, 0, 0, 255},      // Red
-            {0, 0, 255, 255},      // Blue
-            {128, 128, 128, 255},  // Gray
-            {255, 140, 0, 255},    // Dark Orange
-            {127, 255, 0, 255},    // Chartreuse
-            {255, 127, 80, 255},   // Coral
-            {255, 215, 0, 255},    // Gold
-            {0, 250, 154, 255},    // Medium Spring Green
-            {0, 255, 127, 255},    // Spring Green
-            {0, 0, 139, 255}       // Dark Blue
-        };
+        SDL_Color ballColors[numBalls];
 
-    
+        for (int i = 0; i < numBalls; ++i) {
+            ballColors[i].r = 255;
+            ballColors[i].g = 255;
+            ballColors[i].b = 255;
+            ballColors[i].a = 255;
+        }       
         // render circle 
         for (int i = 0; i < numBalls; ++i) {
             SDL_SetRenderDrawColor(renderer, ballColors[i].r, ballColors[i].g, ballColors[i].b, ballColors[i].a);
@@ -412,8 +366,6 @@ int main(int argc, char *argv[]) {
 
         // update renderer
         SDL_RenderPresent(renderer);
-
-        //SDL_Delay(5); 
 
     }
 
